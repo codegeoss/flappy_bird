@@ -41,7 +41,12 @@ class GameOverScreen extends StatelessWidget {
               ),
               child: Text(
                 'Restart'.toUpperCase(),
-                style: const TextStyle(fontSize: 20, color: Colors.white),
+                style: const TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                  fontFamily: 'Flappy',
+                  fontWeight: .bold,
+                ),
               ),
             ),
           ],

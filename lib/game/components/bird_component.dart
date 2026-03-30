@@ -69,8 +69,11 @@ class BirdComponent extends SpriteGroupComponent<BirdMovement>
   }
 
   @override
-  void update(double dt) {
+  Future<void> update(double dt) async {
     position.y += GameValues.birdVelocity * dt;
+    if (position.y < 1) {
+      await gameOver();
+    }
     super.update(dt);
   }
 }
