@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flappy_bird/game/game.dart';
 
-class FlappyBird extends FlameGame {
+class FlappyBird extends FlameGame with TapCallbacks {
   late BirdComponent bird;
   Timer interval = Timer(GameValues.pipeInterval, repeat: true);
 
@@ -18,6 +19,12 @@ class FlappyBird extends FlameGame {
 
     interval.onTick = () => add(PipeGroupComponent());
     return super.onLoad();
+  }
+
+  @override
+  Future<void> onTapDown(TapDownEvent event) async {
+    await bird.onTapFly();
+    super.onTapDown(event);
   }
 
   @override

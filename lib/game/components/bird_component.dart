@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
 import 'package:flappy_bird/game/game.dart';
+import 'package:flutter/animation.dart';
 
 class BirdComponent extends SpriteGroupComponent<BirdMovement>
     with HasGameReference<FlappyBird> {
@@ -23,5 +25,22 @@ class BirdComponent extends SpriteGroupComponent<BirdMovement>
     current = BirdMovement.middle;
 
     return super.onLoad();
+  }
+
+  Future<void> onTapFly() async {
+    await add(
+      MoveByEffect(
+        Vector2(0, GameValues.gravity),
+        EffectController(duration: 0.2, curve: Curves.decelerate),
+        onComplete: () => current = .down,
+      ),
+    );
+    current = .up;
+  }
+
+  @override
+  void update(double dt) {
+    position.y += GameValues.birdVelocity * dt;
+    super.update(dt);
   }
 }
