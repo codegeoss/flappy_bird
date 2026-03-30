@@ -42,6 +42,11 @@ class PipeGroupComponent extends PositionComponent
       removeFromParent();
       log('pipe removed');
     }
+
+    if (game.isPipeHit) {
+      removeFromParent();
+      game.isPipeHit = false;
+    }
     super.update(dt);
   }
 }

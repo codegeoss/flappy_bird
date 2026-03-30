@@ -54,7 +54,9 @@ class BirdComponent extends SpriteGroupComponent<BirdMovement>
 
   void gameOver() {
     game.overlays.add(GameRouter.gameOverRoute);
-    game.pauseEngine();
+    game
+      ..pauseEngine()
+      ..isPipeHit = true;
   }
 
   void reset() => position = initialPosition;
