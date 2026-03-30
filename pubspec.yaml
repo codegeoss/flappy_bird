@@ -40,3 +40,8 @@ flutter:
     - assets/audio/
     - assets/images/
     - assets/licenses/poppins/
+
+  fonts:
+    - family: Flappy
+      fonts:
+        - asset: assets/fonts/flappy-font.ttf
