@@ -1,0 +1,106 @@
+import 'dart:async';
+
+import 'package:audioplayers/audioplayers.dart';
+import 'package:flame/cache.dart';
+import 'package:flame/extensions.dart';
+import 'package:flame_test/flame_test.dart';
+import 'package:flappy_bird/game/entities/unicorn/behaviors/behaviors.dart';
+import 'package:flappy_bird/game/game.dart';
+import 'package:flappy_bird/l10n/l10n.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+
+class _FakeImage extends Fake implements Image {}
+
+class _MockAppLocalizations extends Mock implements AppLocalizations {}
+
+class _MockAudioPlayer extends Mock implements AudioPlayer {}
+
+class _MockImages extends Mock implements Images {}
+
+class _FlappyBird extends FlappyBird {
+  _FlappyBird();
+
+  @override
+  Future<void> onLoad() async {}
+}
+
+void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  group('Unicorn', () {
+    late AppLocalizations l10n;
+    late Images images;
+
+    setUp(() {
+      l10n = _MockAppLocalizations();
+      images = _MockImages();
+
+      when(() => l10n.counterText(any())).thenReturn('counterText');
+      when(() => images.fromCache(any())).thenReturn(_FakeImage());
+    });
+
+    _FlappyBird createFlameGame() {
+      return _FlappyBird();
+    }
+
+    unawaited(
+      testWithGame('has all behaviors', createFlameGame, (game) async {
+        final unicorn = Unicorn(position: Vector2.all(1));
+        await game.ensureAdd(unicorn);
+
+        expect(unicorn.findBehavior<TappingBehavior>(), isNotNull);
+      }),
+    );
+
+    unawaited(
+      testWithGame('loads correctly', createFlameGame, (game) async {
+        final unicorn = Unicorn(position: Vector2.all(1));
+        await game.ensureAdd(unicorn);
+
+        expect(unicorn.isAnimationPlaying(), equals(false));
+      }),
+    );
+
+    group('animation', () {
+      unawaited(
+        testWithGame('plays animation', createFlameGame, (game) async {
+          final unicorn = Unicorn.test(position: Vector2.all(1));
+          await game.ensureAdd(unicorn);
+
+          unicorn.playAnimation();
+          expect(unicorn.animationTicker.currentIndex, equals(0));
+
+          game.update(0.1);
+
+          expect(unicorn.animationTicker.currentIndex, equals(1));
+          expect(unicorn.isAnimationPlaying(), equals(true));
+        }),
+      );
+
+      unawaited(
+        testWithGame(
+          'reset animation back to frame one and stops it',
+          createFlameGame,
+          (game) async {
+            final unicorn = Unicorn.test(position: Vector2.all(1));
+            await game.ensureAdd(unicorn);
+
+            unicorn.playAnimation();
+            game.update(0.1);
+            expect(unicorn.animationTicker.currentIndex, equals(1));
+            expect(unicorn.isAnimationPlaying(), equals(true));
+
+            unicorn.resetAnimation();
+            expect(unicorn.isAnimationPlaying(), equals(false));
+            expect(unicorn.animationTicker.currentIndex, equals(0));
+
+            game.update(0.1);
+            expect(unicorn.animationTicker.currentIndex, equals(0));
+            expect(unicorn.isAnimationPlaying(), equals(false));
+          },
+        ),
+      );
+    });
+  });
+}

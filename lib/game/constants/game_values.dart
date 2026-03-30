@@ -1,0 +1,6 @@
+import 'dart:core';
+
+abstract class GameValues {
+  static const gameSpeed = 200.0;
+  static const groundHeight = 110.0;
+}
