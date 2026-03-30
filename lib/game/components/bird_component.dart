@@ -10,6 +10,8 @@ class BirdComponent extends SpriteGroupComponent<BirdMovement>
     with HasGameReference<FlappyBird>, CollisionCallbacks {
   BirdComponent();
 
+  late final initialPosition = Vector2(50, game.size.y / 2 - size.y / 2);
+
   @override
   FutureOr<void> onLoad() async {
     final birdMidFlap = await game.loadSprite(AssetsPath.birdMidFlapSprite);
@@ -17,7 +19,7 @@ class BirdComponent extends SpriteGroupComponent<BirdMovement>
     final birdDownFlap = await game.loadSprite(AssetsPath.birdDownFlapSprite);
 
     size = Vector2(50, 40);
-    position = Vector2(50, game.size.y / 2 - size.y / 2);
+    position = initialPosition;
     sprites = {
       BirdMovement.middle: birdMidFlap,
       BirdMovement.up: birdUpFlap,
@@ -51,8 +53,11 @@ class BirdComponent extends SpriteGroupComponent<BirdMovement>
   }
 
   void gameOver() {
+    game.overlays.add(GameRouter.gameOverRoute);
     game.pauseEngine();
   }
+
+  void reset() => position = initialPosition;
 
   @override
   void update(double dt) {

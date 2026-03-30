@@ -10,6 +10,6 @@ abstract class AssetsPath {
   static const String birdDownFlapSprite = 'bluebird-downflap.png';
   static const String birdUpFlapSprite = 'bluebird-upflap.png';
   static const String gameOverSprite = 'assets/images/gameover.png';
-  static const String menuSprite = 'assets/images/menu.png';
+  static const String menuSprite = 'assets/images/menu.jpg';
   static const String messageSprite = 'assets/images/message.png';
 }
