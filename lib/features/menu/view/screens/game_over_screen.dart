@@ -14,6 +14,15 @@ class GameOverScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: .min,
           children: [
+            Text(
+              'Score: ${flappyBird.bird.score}',
+              style: const TextStyle(
+                fontSize: 60,
+                color: Colors.white,
+                fontFamily: 'Flappy',
+                fontWeight: .bold,
+              ),
+            ),
             Image.asset(AssetsPath.gameOverSprite),
             SizedBox(
               height: size.height * 0.025,

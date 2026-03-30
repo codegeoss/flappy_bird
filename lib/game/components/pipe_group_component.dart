@@ -40,6 +40,7 @@ class PipeGroupComponent extends PositionComponent
 
     if (position.x < -10) {
       removeFromParent();
+      updateScore();
       log('pipe removed');
     }
 
@@ -48,5 +49,9 @@ class PipeGroupComponent extends PositionComponent
       game.isPipeHit = false;
     }
     super.update(dt);
+  }
+
+  void updateScore() {
+    game.bird.score += 1;
   }
 }

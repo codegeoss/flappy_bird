@@ -9,6 +9,7 @@ import 'package:flutter/animation.dart';
 class BirdComponent extends SpriteGroupComponent<BirdMovement>
     with HasGameReference<FlappyBird>, CollisionCallbacks {
   BirdComponent();
+  int score = 0;
 
   late final initialPosition = Vector2(50, game.size.y / 2 - size.y / 2);
 
@@ -59,7 +60,10 @@ class BirdComponent extends SpriteGroupComponent<BirdMovement>
       ..isPipeHit = true;
   }
 
-  void reset() => position = initialPosition;
+  void reset() {
+    position = initialPosition;
+    score = 0;
+  }
 
   @override
   void update(double dt) {

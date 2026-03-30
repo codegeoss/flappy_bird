@@ -50,6 +50,7 @@ class FlappyBird extends FlameGame with TapCallbacks, HasCollisionDetection {
   @override
   void update(double dt) {
     interval.update(dt);
+    scoreText.text = 'Score: ${bird.score}';
     super.update(dt);
   }
 }
