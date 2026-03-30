@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/parallax.dart';
@@ -17,6 +18,12 @@ class GroundComponent extends ParallaxComponent<FlappyBird> {
           ParallaxImage(ground, fill: .none),
         ),
       ],
+    );
+    add(
+      RectangleHitbox(
+        position: Vector2(0, game.size.y - GameValues.groundHeight),
+        size: Vector2(game.size.x, GameValues.groundHeight),
+      ),
     );
     return super.onLoad();
   }

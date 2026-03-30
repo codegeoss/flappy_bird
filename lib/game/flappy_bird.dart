@@ -5,7 +5,7 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flappy_bird/game/game.dart';
 
-class FlappyBird extends FlameGame with TapCallbacks {
+class FlappyBird extends FlameGame with TapCallbacks, HasCollisionDetection {
   late BirdComponent bird;
   Timer interval = Timer(GameValues.pipeInterval, repeat: true);
 
