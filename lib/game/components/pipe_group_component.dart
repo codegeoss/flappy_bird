@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:math' hide log;
 
 import 'package:flame/components.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flappy_bird/game/game.dart';
 
 class PipeGroupComponent extends PositionComponent
@@ -35,12 +36,12 @@ class PipeGroupComponent extends PositionComponent
   }
 
   @override
-  void update(double dt) {
+  Future<void> update(double dt) async {
     position.x -= GameValues.gameSpeed * dt;
 
     if (position.x < -10) {
       removeFromParent();
-      updateScore();
+      await updateScore();
       log('pipe removed');
     }
 
@@ -51,7 +52,8 @@ class PipeGroupComponent extends PositionComponent
     super.update(dt);
   }
 
-  void updateScore() {
+  Future<void> updateScore() async {
     game.bird.score += 1;
+    await FlameAudio.play(AssetsPath.scoreAudio);
   }
 }

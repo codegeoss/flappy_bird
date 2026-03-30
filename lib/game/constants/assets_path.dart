@@ -12,4 +12,7 @@ abstract class AssetsPath {
   static const String gameOverSprite = 'assets/images/gameover.png';
   static const String menuSprite = 'assets/images/menu.jpg';
   static const String messageSprite = 'assets/images/message.png';
+  static const String collisionAudio = 'collision.wav';
+  static const String flapAudio = 'fly.wav';
+  static const String scoreAudio = 'point.wav';
 }

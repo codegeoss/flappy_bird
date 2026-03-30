@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flappy_bird/game/game.dart';
 import 'package:flutter/animation.dart';
 
@@ -42,18 +43,20 @@ class BirdComponent extends SpriteGroupComponent<BirdMovement>
       ),
     );
     current = .up;
+    await FlameAudio.play(AssetsPath.flapAudio);
   }
 
   @override
-  void onCollisionStart(
+  Future<void> onCollisionStart(
     Set<Vector2> intersectionPoints,
     PositionComponent other,
-  ) {
-    gameOver();
+  ) async {
+    await gameOver();
     super.onCollisionStart(intersectionPoints, other);
   }
 
-  void gameOver() {
+  Future<void> gameOver() async {
+    await FlameAudio.play(AssetsPath.collisionAudio);
     game.overlays.add(GameRouter.gameOverRoute);
     game
       ..pauseEngine()
