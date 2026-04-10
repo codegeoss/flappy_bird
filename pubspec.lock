@@ -269,10 +269,10 @@ packages:
     dependency: "direct main"
     description:
       name: flame
-      sha256: "78c87c34d512f5dd5b69bda823bf31a9f53b27cf319b5326b788f0ec93cbd0b3"
+      sha256: b9e65f6d7d06a301d6ea3cde03731cad3cdc255d56e0fb53c56c1e7806aaaf6a
       url: "https://pub.dev"
     source: hosted
-    version: "1.36.0"
+    version: "1.37.0"
   flame_audio:
     dependency: "direct main"
     description:
@@ -285,10 +285,10 @@ packages:
     dependency: "direct main"
     description:
       name: flame_behaviors
-      sha256: "24acabc217966fff81323facc3c97f3bae90ada951c0203329ce91b6a1dde9f5"
+      sha256: "46fa84fad5c6eaaebd3b9bf2af9c1c766051ab8e3e13d6c78d783653cae337dc"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.4"
+    version: "1.3.5"
   flame_test:
     dependency: "direct dev"
     description:
@@ -932,4 +932,4 @@ packages:
     version: "3.1.3"
 sdks:
   dart: ">=3.11.0 <4.0.0"
-  flutter: ">=3.41.0 <4.0.0"
+  flutter: ">=3.41.0"
